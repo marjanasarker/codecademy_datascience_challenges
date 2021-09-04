@@ -40,6 +40,7 @@ def float_damages(damages):
         new_list.append(damage_num)
     return new_list
 converted_damages = float_damages(damages)
+#print(converted_damages)
 #print(float_damages(damages))
 def hurricanes_dictionary(names, months, years, max_sustained_winds, areas_affected, converted_damages, deaths):
     hurricanes_desc=dict()
@@ -141,14 +142,45 @@ def mortality_scale_category(hurricanes):
             mortality_category[4].append(hurricanes[each_hurricane]["Name"])
     return mortality_category
 
-print(mortality_scale_category(hurricanes))
+#print(mortality_scale_category(hurricanes))
 
 # write your greatest damage function here:
+# hurricanes dictionary has damages as floats so I can use max built in function
+# find max damage first then return the damage and the name of the hurricane
+# converted_damages is a global function
 
+def greatest_damage_hurricane(hurricanes):
+    # used list comprehension to remove str from converted_damages list
+    only_nums = [damage for damage in converted_damages if damage != "Damages not recorded"]
+    max_damage = max(only_nums)
+    for each_hurricane in hurricanes:
+        if hurricanes[each_hurricane]["Damage"]==max_damage:
+            return hurricanes[each_hurricane]["Name"], max_damage 
 
-
-
-
-
+print(greatest_damage_hurricane(hurricanes))
 
 # write your catgeorize by damage function here:
+# damage scale given 
+def damage_category(hurricanes):
+    damage_scale = {0: 0,
+                1: 100000000,
+                2: 1000000000,
+                3: 10000000000,
+                4: 50000000000}
+    damage_category_dict={0:[],1:[],2:[],3:[],4:[]}
+    for each_hurricane in hurricanes:
+        if hurricanes[each_hurricane]["Damage"]!= "Damages not recorded":
+            if hurricanes[each_hurricane]['Damage']==0:
+                damage_category_dict[0].append(hurricanes[each_hurricane]["Name"])
+            elif hurricanes[each_hurricane]['Damage']>0 and hurricanes[each_hurricane]['Damage']<=100000000:
+                damage_category_dict[1].append(hurricanes[each_hurricane]["Name"])
+            elif hurricanes[each_hurricane]['Damage']>100000000 and hurricanes[each_hurricane]['Damage']<=1000000000:
+                damage_category_dict[2].append(hurricanes[each_hurricane]["Name"])
+            elif hurricanes[each_hurricane]['Damage']>1000000000 and hurricanes[each_hurricane]['Damage']<=10000000000:
+                damage_category_dict[3].append(hurricanes[each_hurricane]["Name"])
+            elif hurricanes[each_hurricane]['Damage']>10000000000 and hurricanes[each_hurricane]['Damage']<=50000000000:
+                damage_category_dict[4].append(hurricanes[each_hurricane]["Name"])
+        
+    return damage_category_dict
+
+print(damage_category(hurricanes))
