@@ -106,23 +106,42 @@ def max_hurricane_area(affected_areas_counted):
     return key_max, max_value
 
 max_hurricane=max_hurricane_area(affected_areas_counted)
-print(max_hurricane)
+#print(max_hurricane)
 
 # write your greatest number of deaths function here:
-
-
-
-
-
-
+# function should take the hurricanes dictionary, then query for deaths, find max deaths and return name associated
+# with that 
+def max_mortality_hurricane(hurricanes):
+    max_death = max(deaths)
+    #{}
+    for each_hurricane in hurricanes:
+        if hurricanes[each_hurricane]["Deaths"]==max_death:
+            return hurricanes[each_hurricane]["Name"], max_death
+    #return max_death
+#print(max_mortality_hurricane(hurricanes))
 
 # write your catgeorize by mortality function here:
+def mortality_scale_category(hurricanes):
+    mortality_scale = {0: 0,
+                   1: 100,
+                   2: 500,
+                   3: 1000,
+                   4: 10000}
+    mortality_category={0:[],1:[],2:[],3:[],4:[]}
+    for each_hurricane in hurricanes:
+        if hurricanes[each_hurricane]['Deaths']==0:
+            mortality_category[0].append(hurricanes[each_hurricane]["Name"])
+        elif hurricanes[each_hurricane]['Deaths']>0 and hurricanes[each_hurricane]['Deaths']<=100:
+            mortality_category[1].append(hurricanes[each_hurricane]["Name"])
+        elif hurricanes[each_hurricane]['Deaths']>100 and hurricanes[each_hurricane]['Deaths']<=500:
+            mortality_category[2].append(hurricanes[each_hurricane]["Name"])
+        elif hurricanes[each_hurricane]['Deaths']>500 and hurricanes[each_hurricane]['Deaths']<=1000:
+            mortality_category[3].append(hurricanes[each_hurricane]["Name"])
+        elif hurricanes[each_hurricane]['Deaths']>1000 and hurricanes[each_hurricane]['Deaths']<=10000:
+            mortality_category[4].append(hurricanes[each_hurricane]["Name"])
+    return mortality_category
 
-
-
-
-
-
+print(mortality_scale_category(hurricanes))
 
 # write your greatest damage function here:
 
